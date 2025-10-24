@@ -1,18 +1,19 @@
 package io.github.tdminhnhat.controller;
 
 import io.github.tdminhnhat.model.vo.BaseVO;
-import io.micronaut.http.HttpResponse;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 public interface IController<S extends Record, P extends Number, R extends BaseVO> {
-    HttpResponse<R> add(S request);
+    Mono<R> add(S request);
 
-    HttpResponse<R> update(P id, S request);
+    Mono<R> update(P id, S request);
 
-    HttpResponse<R> delete(P id);
+    Mono<R> delete(P id);
 
-    HttpResponse<R> getById(P id);
+    Mono<R> getById(P id);
 
-    HttpResponse<List<R>> getAll();
+    Flux<R> getAll();
 }

@@ -16,9 +16,9 @@ r2dbc:
     default:
       dialect: POSTGRES
       db-type: postgres
-      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/sc-friend
-      username: ${POSTGRES_USER:dbowner}
-      password: ${POSTGRES_PASSWORD:dbowner}
+      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/jeri-friend-service
+      username: ${POSTGRES_USER:postgres}
+      password: ${POSTGRES_PASSWORD:123456789}
 #consul:
 #  client:
 #    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
@@ -30,9 +30,9 @@ flyway:
       enabled: true
       validate-migration-naming: true
       validate-on-migrate: true
-      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/sc-friend
-      username: ${POSTGRES_USER:dbowner}
-      password: ${POSTGRES_PASSWORD:dbowner}
+      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/jeri-friend-service
+      username: ${POSTGRES_USER:postgres}
+      password: ${POSTGRES_PASSWORD:123456789}
 api:
   path:
     friend: /api/v1

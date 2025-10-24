@@ -16,8 +16,8 @@ public class Friend extends BaseEntity {
     @MappedProperty(value = "sender_id", type = DataType.BIGDECIMAL)
     private Long senderId;
 
-    @MappedProperty(value = "user_id", type = DataType.BIGDECIMAL)
-    private Long userId;
+    @MappedProperty(value = "receiver_id", type = DataType.BIGDECIMAL)
+    private Long receiverId;
 
     @MappedProperty(value = "message_request", type = DataType.STRING)
     private String messageRequest;

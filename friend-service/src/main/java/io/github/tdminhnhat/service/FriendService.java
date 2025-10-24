@@ -3,22 +3,26 @@ package io.github.tdminhnhat.service;
 import io.github.tdminhnhat.model.dto.FriendDTO;
 import io.github.tdminhnhat.model.vo.BaseVO;
 import io.github.tdminhnhat.model.vo.FriendVO;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 public interface FriendService extends IService<FriendDTO, Long> {
     @Override
-    FriendVO create(FriendDTO request);
+    Mono<FriendVO> create(FriendDTO request);
 
     @Override
-    FriendVO update(Long id, FriendDTO request);
+    Mono<FriendVO> update(Long id, FriendDTO request);
 
     @Override
-    FriendVO delete(Long id);
+    Mono<FriendVO> delete(Long id);
 
     @Override
-    FriendVO getById(Long id);
+    Mono<FriendVO> getById(Long id);
 
     @Override
-    List<FriendVO> getAll();
+    Flux<FriendVO> getAll();
+
+    Flux<FriendVO> getFriendsByUserId(Long userId);
 }
