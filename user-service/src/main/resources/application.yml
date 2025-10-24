@@ -9,6 +9,9 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  server:
+    context-path: /user
+    port: 9091
 datasources:
   default:
     driver-class-name: org.postgresql.Driver
@@ -38,3 +41,6 @@ jpa:
       hibernate:
         hbm2ddl:
           auto: none
+api:
+  path:
+    user: /api/v1
