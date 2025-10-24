@@ -9,21 +9,30 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
-datasources:
-  default:
-    driver-class-name: org.postgresql.Driver
-    db-type: postgres
+  server:
+    context-path: /friend
 r2dbc:
   datasources:
     default:
       dialect: POSTGRES
       db-type: postgres
-consul:
-  client:
-    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
-    registration:
-      enabled: true
+      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/sc-friend
+      username: ${POSTGRES_USER:dbowner}
+      password: ${POSTGRES_PASSWORD:dbowner}
+#consul:
+#  client:
+#    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+#    registration:
+#      enabled: true
 flyway:
   datasources:
     default:
       enabled: true
+      validate-migration-naming: true
+      validate-on-migrate: true
+      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/sc-friend
+      username: ${POSTGRES_USER:dbowner}
+      password: ${POSTGRES_PASSWORD:dbowner}
+api:
+  path:
+    friend: /api/v1
