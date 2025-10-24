@@ -14,16 +14,24 @@ datasources:
     driver-class-name: org.postgresql.Driver
     db-type: postgres
     dialect: POSTGRES
-consul:
-  client:
-    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
-    registration:
-      enabled: true
-jpa.default.properties.hibernate.hbm2ddl.auto: none
+    url: jdbc:postgresql://${POSTGRES_HOST_DB:localhost}:${POSTGRES_PORT_DB:5432}/jeri-user-service
+    username: ${POSTGRES_AUTH_USERNAME:postgres}
+    password: ${POSTGRES_AUTH_PASSWORD:123456789}
+#consul:
+#  client:
+#    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+#    registration:
+#      enabled: ${CONSUL_STATUS:true}
+#jpa.default.properties.hibernate.hbm2ddl.auto: none
 flyway:
   datasources:
     default:
       enabled: true
+      validate-on-migrate: true
+      validate-migration-naming: true
+      url: jdbc:postgresql://${POSTGRES_HOST_DB:localhost}:${POSTGRES_PORT_DB:5432}/jeri-user-service
+      username: ${POSTGRES_AUTH_USERNAME:postgres}
+      password: ${POSTGRES_AUTH_PASSWORD:123456789}
 jpa:
   default:
     properties:
