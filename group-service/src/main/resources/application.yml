@@ -9,6 +9,9 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  server:
+    context-path: /group
+    port: 9093
 datasources:
   default:
     driver-class-name: org.postgresql.Driver
@@ -18,12 +21,24 @@ r2dbc:
     default:
       dialect: POSTGRES
       db-type: postgres
-consul:
-  client:
-    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
-    registration:
-      enabled: true
+      url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:jeri-group-service}
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:123456789}
+#consul:
+#  client:
+#    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+#    registration:
+#      enabled: true
 flyway:
   datasources:
     default:
       enabled: true
+      validate-migration-naming: true
+      validate-on-migrate: true
+      url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:jeri-group-service}
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:123456789}
+api:
+  path:
+    group: /api/v1/groups
+    group-member: /api/v1/group-members
