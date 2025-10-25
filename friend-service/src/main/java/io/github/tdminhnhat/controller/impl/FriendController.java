@@ -1,18 +1,16 @@
 package io.github.tdminhnhat.controller.impl;
 
 import io.github.tdminhnhat.controller.IController;
+import io.github.tdminhnhat.enums.FriendStatus;
 import io.github.tdminhnhat.model.dto.FriendDTO;
 import io.github.tdminhnhat.model.vo.FriendVO;
 import io.github.tdminhnhat.service.FriendService;
-import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @Controller(value = "${api.path.friend}/friends")
 @RequiredArgsConstructor
@@ -48,5 +46,11 @@ public class FriendController implements IController<FriendDTO, Long, FriendVO> 
     @Override
     public Flux<FriendVO> getAll() {
         return friendService.getAll();
+    }
+
+    @Put(value = "/{id}/status")
+    public Mono<FriendVO> changeStatus(@PathVariable("id") Long id,
+                                       @QueryValue("status") FriendStatus status) {
+        return friendService.changeStatus(id, status);
     }
 }

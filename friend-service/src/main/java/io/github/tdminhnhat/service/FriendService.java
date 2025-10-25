@@ -1,5 +1,7 @@
 package io.github.tdminhnhat.service;
 
+import io.github.tdminhnhat.entity.Friend;
+import io.github.tdminhnhat.enums.FriendStatus;
 import io.github.tdminhnhat.model.dto.FriendDTO;
 import io.github.tdminhnhat.model.vo.BaseVO;
 import io.github.tdminhnhat.model.vo.FriendVO;
@@ -25,4 +27,6 @@ public interface FriendService extends IService<FriendDTO, Long> {
     Flux<FriendVO> getAll();
 
     Flux<FriendVO> getFriendsByUserId(Long userId);
+
+    Mono<FriendVO> changeStatus(Long id, FriendStatus status);
 }
