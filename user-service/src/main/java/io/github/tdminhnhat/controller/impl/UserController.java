@@ -1,11 +1,14 @@
 package io.github.tdminhnhat.controller.impl;
 
 import io.github.tdminhnhat.controller.IController;
+import io.github.tdminhnhat.controller.IImageController;
 import io.github.tdminhnhat.model.dto.UserDTO;
 import io.github.tdminhnhat.model.vo.UserVO;
 import io.github.tdminhnhat.service.UserService;
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
+import io.micronaut.http.multipart.CompletedFileUpload;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +16,7 @@ import java.util.List;
 
 @Controller(value = "${api.path.user}/users")
 @RequiredArgsConstructor
-public class UserController implements IController<UserDTO, Long, UserVO> {
+public class UserController implements IController<UserDTO, Long, UserVO>, IImageController<Long, UserVO> {
 
     private final UserService userService;
 
@@ -45,5 +48,17 @@ public class UserController implements IController<UserDTO, Long, UserVO> {
     @Override
     public HttpResponse<List<UserVO>> getAll() {
         return HttpResponse.ok(userService.getAll());
+    }
+
+    @Post(value = "/{id}/images", consumes = MediaType.MULTIPART_FORM_DATA)
+    @Override
+    public HttpResponse<UserVO> addImage(@PathVariable("id") Long id, @QueryValue("upload") CompletedFileUpload upload) {
+        return HttpResponse.ok(userService.addImage(id, upload));
+    }
+
+    @Deprecated
+    @Override
+    public HttpResponse<List<UserVO>> addListImages(Long id, List<CompletedFileUpload> images) {
+        return null;
     }
 }

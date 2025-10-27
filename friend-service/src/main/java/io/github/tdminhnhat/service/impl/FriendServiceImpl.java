@@ -63,4 +63,13 @@ public class FriendServiceImpl implements FriendService {
     public Flux<FriendVO> getFriendsByUserId(Long userId) {
         return friendRepository.getAllFriendsByUserId(userId).map(friendMapper::toVO);
     }
+
+    @Override
+    public Mono<FriendVO> changeStatus(Long id, FriendStatus status) {
+        return friendRepository.findById(id).switchIfEmpty(Mono.error(new QueryNotFoundException("Friend Not Found")))
+                .flatMap(friend -> {
+                    friend.setStatus(status);
+                    return friendRepository.save(friend).map(friendMapper::toVO);
+                });
+    }
 }

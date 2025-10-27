@@ -44,6 +44,9 @@ public class User extends BaseEntityJPA {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
+    @Column(name = "avatar", length = 500)
+    private String avatar;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role_id", nullable = false)
     @NonNull

@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: jeri-chat-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          globalcors:
+            cors-configurations:
+                '[/**]':
+                    allowedOrigins: "*"
+                    allowedMethods:
+                    - GET
+                    - POST
+                    - PUT
+                    - DELETE
+                    - OPTIONS
+                    allowedHeaders:
+                    - "*"
+                    allowCredentials: true
+          routes:
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/user/**
+            - id: friend-service
+              uri: lb://friend-service
+              predicates:
+                - Path=/friend/**
+            - id: group-service
+              uri: lb://group-service
+              predicates:
+                - Path=/group/**
+    consul:
+      discovery:
+        enabled: true
+        register: true
+server:
+  port: 8888
+  address: 0.0.0.0

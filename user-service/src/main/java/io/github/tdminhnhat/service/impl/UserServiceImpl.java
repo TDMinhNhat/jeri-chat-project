@@ -7,9 +7,11 @@ import io.github.tdminhnhat.model.dto.UserDTO;
 import io.github.tdminhnhat.model.vo.UserVO;
 import io.github.tdminhnhat.repository.UserRepository;
 import io.github.tdminhnhat.service.UserService;
+import io.micronaut.http.multipart.CompletedFileUpload;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
+import java.io.InputStream;
 import java.util.List;
 
 @Singleton
@@ -47,6 +49,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserVO> getAll() {
         return userRepository.findAll().stream().map(userMapper::toVO).toList();
+    }
+
+    @Override
+    public UserVO addImage(Long id, CompletedFileUpload upload) {
+        try(InputStream inputStream = upload.getInputStream()) {
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<UserVO> addListImages(Long id, List<CompletedFileUpload> uploads) {
+        return List.of();
     }
 
     private String generateUserCode() {

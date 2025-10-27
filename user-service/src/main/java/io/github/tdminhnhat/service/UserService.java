@@ -2,10 +2,11 @@ package io.github.tdminhnhat.service;
 
 import io.github.tdminhnhat.model.dto.UserDTO;
 import io.github.tdminhnhat.model.vo.UserVO;
+import io.micronaut.http.multipart.CompletedFileUpload;
 
 import java.util.List;
 
-public interface UserService extends IService<UserDTO, Long> {
+public interface UserService extends IService<UserDTO, Long>, IImageService<Long> {
 
     @Override
     UserVO add(UserDTO request);
@@ -21,4 +22,10 @@ public interface UserService extends IService<UserDTO, Long> {
 
     @Override
     List<UserVO> getAll();
+
+    @Override
+    UserVO addImage(Long id, CompletedFileUpload upload);
+
+    @Override
+    List<UserVO> addListImages(Long id, List<CompletedFileUpload> uploads);
 }
