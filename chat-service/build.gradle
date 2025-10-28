@@ -5,7 +5,7 @@ plugins {
     id("io.micronaut.aot") version "4.6.0"
 }
 
-version = "0.1"
+version = "1.0"
 group = "io.github.tdminhnhat"
 
 repositories {
@@ -19,6 +19,7 @@ dependencies {
     annotationProcessor("io.micronaut.openapi:micronaut-openapi")
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
     annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
+
     implementation("io.micrometer:context-propagation")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut.data:micronaut-data-mongodb")
@@ -28,11 +29,15 @@ dependencies {
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.minio:minio:8.6.0")
+
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
+
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.mongodb:mongodb-driver-reactivestreams")
     runtimeOnly("org.yaml:snakeyaml")
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
