@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Controller(value = "${api-path.private-chat}")
+@Controller(value = "${api-path.rest.private-chat}")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PrivateChatController implements IController<PrivateChatDTO, Long, PrivateChatVO> {

@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Controller(value = "${api-path.group-chat}")
+@Controller(value = "${api-path.rest.group-chat}")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class GroupChatRepository implements IController<GroupChatDTO, Long, GroupChatVO> {

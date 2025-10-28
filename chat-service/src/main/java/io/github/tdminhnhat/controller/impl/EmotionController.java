@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-@Controller(value = "${api-path.emotion}")
+@Controller(value = "${api-path.rest.emotion}")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EmotionController implements IController<EmotionDTO, Long, EmotionVO>, IImageController<Long, EmotionVO> {

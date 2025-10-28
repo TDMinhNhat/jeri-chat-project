@@ -29,6 +29,11 @@ minio:
   secretKey: ${MINIO_SECRET_KEY:123456789}
   bucketName: ${MINIO_BUCKET_NAME:jeri-chat-bucket}
 api-path:
-  emotion: /api/v1/emotions
-  private-chat: /api/v1/private-chats
-  group-chat: /api/v1/group-chats
+  rest:
+    emotion: /api/v1/emotions
+    private-chat: /api/v1/private-chats
+    group-chat: /api/v1/group-chats
+  websocket:
+    private-chat: /ws/v1/private-chats
+    group-chat: /ws/v1/group-chats
+    notify: /ws/v1/notify
