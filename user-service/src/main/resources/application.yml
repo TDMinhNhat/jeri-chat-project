@@ -43,4 +43,4 @@ jpa:
           auto: none
 api:
   path:
-    user: /api/v1
+    user: /api/v1/users

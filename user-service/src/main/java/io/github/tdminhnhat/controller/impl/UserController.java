@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Controller(value = "${api.path.user}/users")
+@Controller(value = "${api.path.user}")
 @RequiredArgsConstructor
 public class UserController implements IController<UserDTO, Long, UserVO>, IImageController<Long, UserVO> {
 
