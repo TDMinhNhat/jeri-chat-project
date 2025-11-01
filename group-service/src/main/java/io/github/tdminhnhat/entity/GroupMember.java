@@ -1,6 +1,7 @@
 package io.github.tdminhnhat.entity;
 
 import io.github.tdminhnhat.enums.GroupMemberRole;
+import io.github.tdminhnhat.enums.GroupMemberStatus;
 import io.micronaut.data.annotation.MappedEntity;
 import io.micronaut.data.annotation.MappedProperty;
 import io.micronaut.data.annotation.Relation;
@@ -26,4 +27,7 @@ public class GroupMember extends BaseEntity {
 
     @MappedProperty(value = "user_approval", type = DataType.LONG)
     private Long userApproval;
+
+    @MappedProperty(value = "status", type = DataType.STRING)
+    private GroupMemberStatus status;
 }

@@ -2,10 +2,13 @@ package io.github.tdminhnhat.service;
 
 import io.github.tdminhnhat.model.dto.GroupDTO;
 import io.github.tdminhnhat.model.vo.GroupVO;
+import io.micronaut.http.multipart.CompletedFileUpload;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface GroupService extends IService<GroupDTO, Long> {
+import java.util.List;
+
+public interface GroupService extends IService<GroupDTO, Long>, IImageService<Long, GroupVO> {
 
     @Override
     Mono<GroupVO> create(GroupDTO request);
@@ -21,4 +24,16 @@ public interface GroupService extends IService<GroupDTO, Long> {
 
     @Override
     Flux<GroupVO> getAll();
+
+    @Override
+    Mono<GroupVO> uploadImage(Long id, CompletedFileUpload file) throws Exception;
+
+    @Override
+    Flux<GroupVO> uploadImages(Long id, List<CompletedFileUpload> files) throws Exception;
+
+    @Override
+    Mono<GroupVO> deleteImage(Long id, String imageId) throws Exception;
+
+    @Override
+    Flux<GroupVO> deleteImages(Long id, List<String> imageIds) throws Exception;
 }

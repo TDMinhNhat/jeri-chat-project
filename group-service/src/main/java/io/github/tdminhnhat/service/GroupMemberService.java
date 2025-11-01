@@ -1,9 +1,12 @@
 package io.github.tdminhnhat.service;
 
+import io.github.tdminhnhat.enums.GroupMemberStatus;
 import io.github.tdminhnhat.model.dto.GroupMemberDTO;
 import io.github.tdminhnhat.model.vo.GroupMemberVO;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 public interface GroupMemberService extends IService<GroupMemberDTO, Long> {
     @Override
@@ -20,4 +23,10 @@ public interface GroupMemberService extends IService<GroupMemberDTO, Long> {
 
     @Override
     Flux<GroupMemberVO> getAll();
+
+    Flux<GroupMemberVO> getAllMembersByGroupId(Long groupId);
+
+    Mono<GroupMemberVO> changeStatus(Long groupId, Long memberId, GroupMemberStatus status);
+
+    Flux<GroupMemberVO> kickOrBlockMembers(Long groupId, List<Long> memberIds, GroupMemberStatus status);
 }

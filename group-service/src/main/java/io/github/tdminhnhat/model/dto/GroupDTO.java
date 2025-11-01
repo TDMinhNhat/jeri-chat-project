@@ -6,6 +6,7 @@ import io.micronaut.serde.annotation.SerdeImport;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 @Serdeable
@@ -20,6 +21,10 @@ public record GroupDTO(
         String description,
 
         @NotNull(message = "can not be null or empty")
-        JoinGroupType joinType
+        JoinGroupType joinType,
+
+        @NotNull(message = "can not be null or empty")
+        @Positive(message = "must be a positive number")
+        Long creatorId
 ) {
 }

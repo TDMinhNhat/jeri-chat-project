@@ -16,6 +16,9 @@ datasources:
   default:
     driver-class-name: org.postgresql.Driver
     db-type: postgres
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:jeri-group-service}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:123456789}
 r2dbc:
   datasources:
     default:
@@ -38,7 +41,14 @@ flyway:
       url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:jeri-group-service}
       username: ${DB_USERNAME:postgres}
       password: ${DB_PASSWORD:123456789}
+      driver: org.postgresql.Driver
+      locations: classpath:db/migration
 api:
   path:
     group: /api/v1/groups
     group-member: /api/v1/group-members
+minio:
+  url: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin}
+  bucket-name: ${MINIO_BUCKET_NAME:jeri-group-service}
