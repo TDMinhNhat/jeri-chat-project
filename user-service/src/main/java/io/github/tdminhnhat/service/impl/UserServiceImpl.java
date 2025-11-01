@@ -10,7 +10,10 @@ import io.github.tdminhnhat.model.vo.UserVO;
 import io.github.tdminhnhat.repository.AddressRepository;
 import io.github.tdminhnhat.repository.UserRepository;
 import io.github.tdminhnhat.service.UserService;
+import io.micronaut.context.annotation.Value;
 import io.micronaut.http.multipart.CompletedFileUpload;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +29,10 @@ public class UserServiceImpl implements UserService {
     private final AddressRepository addressRepository;
     private final UserMapper userMapper;
     private final AddressMapper addressMapper;
+    private final MinioClient minioClient;
+
+    @Value("${minio}")
+    private String bucketName;
 
     @Override
     public UserVO add(UserDTO request) {
@@ -80,6 +87,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO addImage(Long id, CompletedFileUpload upload) {
         try(InputStream inputStream = upload.getInputStream()) {
+            User user = userRepository.findById(id).orElseThrow(() -> new QueryNotFoundException("User Not Found"));
+            minioClient.putObject(PutObjectArgs.builder()
+                    .bucket("")
+                    .object("")
+                    .build());
             return null;
         } catch (Exception e) {
             return null;
@@ -89,6 +101,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserVO> addListImages(Long id, List<CompletedFileUpload> uploads) {
         return List.of();
+    }
+
+    @Override
+    public UserVO deleteImage(Long id, String imageId) throws Exception {
+        return null;
     }
 
     private String generateUserCode(String firstName, String lastName) {
