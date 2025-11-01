@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IImageController<P extends Number, R extends BaseVO> {
 
-    HttpResponse<R> addImage(P id, CompletedFileUpload upload);
+    HttpResponse<R> addImage(P id, CompletedFileUpload upload) throws Exception;
 
-    HttpResponse<List<R>> addListImages(P id, List<CompletedFileUpload> images);
+    HttpResponse<List<R>> addListImages(P id, List<CompletedFileUpload> images) throws Exception;
 }

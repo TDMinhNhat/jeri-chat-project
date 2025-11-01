@@ -41,6 +41,11 @@ jpa:
       hibernate:
         hbm2ddl:
           auto: none
+minio:
+  url: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
+  access-key: ${MINIO_ACCESS_KEY:minio}
+  secret-key: ${MINIO_SECRET_KEY:minio}
+  bucket-name: ${MINIO_BUCKET_NAME:user-service}
 api:
   path:
-    user: /api/v1
+    user: /api/v1/users

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Controller(value = "${api.path.user}/users")
+@Controller(value = "${api.path.user}")
 @RequiredArgsConstructor
 public class UserController implements IController<UserDTO, Long, UserVO>, IImageController<Long, UserVO> {
 
@@ -52,13 +52,13 @@ public class UserController implements IController<UserDTO, Long, UserVO>, IImag
 
     @Post(value = "/{id}/images", consumes = MediaType.MULTIPART_FORM_DATA)
     @Override
-    public HttpResponse<UserVO> addImage(@PathVariable("id") Long id, @QueryValue("upload") CompletedFileUpload upload) {
+    public HttpResponse<UserVO> addImage(@PathVariable("id") Long id, @QueryValue("upload") CompletedFileUpload upload) throws Exception{
         return HttpResponse.ok(userService.addImage(id, upload));
     }
 
     @Deprecated
     @Override
-    public HttpResponse<List<UserVO>> addListImages(Long id, List<CompletedFileUpload> images) {
+    public HttpResponse<List<UserVO>> addListImages(Long id, List<CompletedFileUpload> images) throws Exception {
         return null;
     }
 }

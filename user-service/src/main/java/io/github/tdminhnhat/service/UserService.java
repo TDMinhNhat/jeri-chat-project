@@ -24,8 +24,8 @@ public interface UserService extends IService<UserDTO, Long>, IImageService<Long
     List<UserVO> getAll();
 
     @Override
-    UserVO addImage(Long id, CompletedFileUpload upload);
+    UserVO addImage(Long id, CompletedFileUpload upload) throws Exception;
 
     @Override
-    List<UserVO> addListImages(Long id, List<CompletedFileUpload> uploads);
+    List<UserVO> addListImages(Long id, List<CompletedFileUpload> uploads) throws Exception;
 }
