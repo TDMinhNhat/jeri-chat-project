@@ -11,19 +11,20 @@ micronaut:
         mapping: /swagger-ui/**
   server:
     context-path: /friend
+    port: 9092
 r2dbc:
   datasources:
     default:
       dialect: POSTGRES
       db-type: postgres
-      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/jeri-friend-service
+      url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/jeri-friend-service
       username: ${POSTGRES_USER:postgres}
       password: ${POSTGRES_PASSWORD:123456789}
-#consul:
-#  client:
-#    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
-#    registration:
-#      enabled: true
+consul:
+  client:
+    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+    registration:
+      enabled: true
 flyway:
   datasources:
     default:
@@ -35,4 +36,4 @@ flyway:
       password: ${POSTGRES_PASSWORD:123456789}
 api:
   path:
-    friend: /api/v1
+    friend: /api/v1/friends

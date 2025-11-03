@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Controller(value = "${api.path.friend}/friends")
+@Controller(value = "${api.path.friend}")
 @RequiredArgsConstructor
 public class FriendController implements IController<FriendDTO, Long, FriendVO> {
 
