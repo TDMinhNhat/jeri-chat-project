@@ -12,8 +12,11 @@ import io.github.tdminhnhat.repository.UserRepository;
 import io.github.tdminhnhat.service.UserService;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.multipart.CompletedFileUpload;
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import jakarta.annotation.PostConstruct;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
@@ -31,8 +34,18 @@ public class UserServiceImpl implements UserService {
     private final AddressMapper addressMapper;
     private final MinioClient minioClient;
 
-    @Value("${minio}")
+    @Value("${minio.bucketName}")
     private String bucketName;
+
+    @PostConstruct
+    public void initializeService() throws Exception {
+        if(!minioClient.bucketExists(BucketExistsArgs.builder()
+                .bucket(bucketName)
+                .build())) {
+            minioClient.makeBucket(MakeBucketArgs.builder()
+                    .bucket(bucketName).build());
+        }
+    }
 
     @Override
     public UserVO add(UserDTO request) {

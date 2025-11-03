@@ -1,29 +1,37 @@
 package io.github.tdminhnhat.config;
 
-import io.github.tdminhnhat.config.properties.MinIOProperties;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Value;
 import io.minio.MinioClient;
-import jakarta.inject.Inject;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Factory
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MinIOConfiguration {
 
-    MinIOProperties minIOProperties;
+    String endpoint;
 
-    @Inject
-    public MinIOConfiguration(MinIOProperties minIOProperties) {
-        this.minIOProperties = minIOProperties;
+    String accessKey;
+
+    String secretKey;
+
+    public MinIOConfiguration(@Value("${minio.endpoint}") String endpoint,
+                              @Value("${minio.accessKey}") String accessKey,
+                              @Value("${minio.secretKey}") String secretKey) {
+        this.endpoint = endpoint;
+        this.accessKey = accessKey;
+        this.secretKey = secretKey;
     }
 
     @Bean
     public MinioClient minioClient() {
         return MinioClient.builder()
-                .endpoint(minIOProperties.getEndpoint())
-                .credentials(minIOProperties.getAccessKey(), minIOProperties.getSecretKey())
+                .endpoint(endpoint)
+                .credentials(accessKey, secretKey)
                 .build();
     }
 }
