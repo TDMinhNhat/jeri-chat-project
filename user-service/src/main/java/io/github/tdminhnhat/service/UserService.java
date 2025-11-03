@@ -28,4 +28,7 @@ public interface UserService extends IService<UserDTO, Long>, IImageService<Long
 
     @Override
     List<UserVO> addListImages(Long id, List<CompletedFileUpload> uploads) throws Exception;
+
+    @Override
+    UserVO deleteImage(Long id, String imageId) throws Exception;
 }

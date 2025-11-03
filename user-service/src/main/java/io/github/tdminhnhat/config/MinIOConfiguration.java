@@ -4,6 +4,7 @@ import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Value;
 import io.minio.MinioClient;
+import jakarta.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -27,11 +28,9 @@ public class MinIOConfiguration {
         this.secretKey = secretKey;
     }
 
-    @Bean
+    @Singleton
     public MinioClient minioClient() {
-        return MinioClient.builder()
-                .endpoint(endpoint)
-                .credentials(accessKey, secretKey)
-                .build();
+        return MinioClient.builder().endpoint(endpoint)
+                .credentials(accessKey, secretKey).build();
     }
 }

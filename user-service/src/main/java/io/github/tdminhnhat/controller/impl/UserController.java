@@ -52,7 +52,7 @@ public class UserController implements IController<UserDTO, Long, UserVO>, IImag
 
     @Post(value = "/{id}/images", consumes = MediaType.MULTIPART_FORM_DATA)
     @Override
-    public HttpResponse<UserVO> addImage(@PathVariable("id") Long id, @QueryValue("upload") CompletedFileUpload upload) throws Exception{
+    public HttpResponse<UserVO> addImage(@PathVariable("id") Long id, @Part(value = "upload") CompletedFileUpload upload) throws Exception{
         return HttpResponse.ok(userService.addImage(id, upload));
     }
 
@@ -60,5 +60,11 @@ public class UserController implements IController<UserDTO, Long, UserVO>, IImag
     @Override
     public HttpResponse<List<UserVO>> addListImages(Long id, List<CompletedFileUpload> images) throws Exception {
         return null;
+    }
+
+    @Delete(value = "/{id}/avatar")
+    @Override
+    public HttpResponse<UserVO> deleteImage(@PathVariable("id") Long id, @QueryValue(value = "imageId") String imageId) throws Exception {
+        return HttpResponse.ok(userService.deleteImage(id, imageId));
     }
 }

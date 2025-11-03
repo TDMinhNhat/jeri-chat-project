@@ -20,12 +20,11 @@ datasources:
     url: jdbc:postgresql://${POSTGRES_HOST_DB:localhost}:${POSTGRES_PORT_DB:5432}/jeri-user-service
     username: ${POSTGRES_AUTH_USERNAME:postgres}
     password: ${POSTGRES_AUTH_PASSWORD:123456789}
-#consul:
-#  client:
-#    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
-#    registration:
-#      enabled: ${CONSUL_STATUS:true}
-#jpa.default.properties.hibernate.hbm2ddl.auto: none
+consul:
+  client:
+    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+    registration:
+      enabled: ${CONSUL_STATUS:true}
 flyway:
   datasources:
     default:
@@ -41,11 +40,13 @@ jpa:
       hibernate:
         hbm2ddl:
           auto: none
+      show_sql: true
+      format_sql: true
 api:
   path:
     user: /api/v1/users
 minio:
-  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  endpoint: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
   accessKey: ${MINIO_ACCESS_KEY:minioadmin}
   secretKey: ${MINIO_SECRET_KEY:minioadmin}
-  bucketName: ${MINIO_BUCKET_NAME:user-service}
+  bucketName: ${MINIO_BUCKET_NAME:jeri-user-service}

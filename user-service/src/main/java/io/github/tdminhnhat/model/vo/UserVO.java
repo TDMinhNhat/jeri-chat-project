@@ -32,6 +32,10 @@ public class UserVO extends BaseVO {
 
     private AddressVO address;
 
+    private String avatar;
+
+    private String avatarUrl;
+
     private UserRole role;
 
     private String displayName;

@@ -11,4 +11,6 @@ public interface IImageController<P extends Number, R extends BaseVO> {
     HttpResponse<R> addImage(P id, CompletedFileUpload upload) throws Exception;
 
     HttpResponse<List<R>> addListImages(P id, List<CompletedFileUpload> images) throws Exception;
+
+    HttpResponse<R> deleteImage(P id, String imageId) throws Exception;
 }

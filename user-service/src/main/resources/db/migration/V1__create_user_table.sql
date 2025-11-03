@@ -22,12 +22,14 @@ CREATE TABLE users
     created_at   TIMESTAMP DEFAULT NOW()                 NOT NULL,
     updated_at   TIMESTAMP DEFAULT NULL,
     version      INTEGER   DEFAULT 0                     NOT NULL,
-    code         VARCHAR(30)                             NOT NULL,
+    code         VARCHAR(500)                            NOT NULL,
     first_name   VARCHAR(50)                             NOT NULL,
     last_name    VARCHAR(50)                             NOT NULL,
     gender       VARCHAR(50)                             NOT NULL,
     birth_date   DATE                                    NOT NULL,
     phone_number VARCHAR(30)                             NOT NULL,
+    address_id   BIGINT                                  NOT NULL,
+    avatar       VARCHAR(500),
     role_id      VARCHAR(255)                            NOT NULL,
     display_name VARCHAR(100)                            NOT NULL,
     email        VARCHAR(200)                            NOT NULL,
@@ -43,3 +45,6 @@ ALTER TABLE users
 
 ALTER TABLE users
     ADD CONSTRAINT uc_users_phone_number UNIQUE (phone_number);
+
+ALTER TABLE users
+    ADD CONSTRAINT fk_users_addresses_address_id FOREIGN KEY (address_id) REFERENCES addresses (id);
