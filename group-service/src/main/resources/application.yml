@@ -48,7 +48,7 @@ api:
     group: /api/v1/groups
     group-member: /api/v1/group-members
 minio:
-  url: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
+  endpoint: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
   access-key: ${MINIO_ACCESS_KEY:minioadmin}
   secret-key: ${MINIO_SECRET_KEY:minioadmin}
   bucket-name: ${MINIO_BUCKET_NAME:jeri-group-service}

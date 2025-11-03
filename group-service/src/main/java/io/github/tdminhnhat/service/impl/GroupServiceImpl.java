@@ -1,7 +1,5 @@
 package io.github.tdminhnhat.service.impl;
 
-import io.github.tdminhnhat.config.properties.MinIOProperties;
-import io.github.tdminhnhat.entity.Group;
 import io.github.tdminhnhat.entity.GroupMember;
 import io.github.tdminhnhat.enums.GroupMemberRole;
 import io.github.tdminhnhat.exception.FileExtensionException;
@@ -17,10 +15,14 @@ import io.github.tdminhnhat.service.GroupService;
 import io.github.tdminhnhat.util.FileValidation;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.multipart.CompletedFileUpload;
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -28,23 +30,37 @@ import java.io.InputStream;
 import java.util.List;
 
 @Singleton
-@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class GroupServiceImpl implements GroupService {
 
-    private final GroupRepository groupRepository;
-    private final GroupMemberRepository groupMemberRepository;
-    private final GroupMapper groupMapper;
-    private final GroupMemberMapper groupMemberMapper;
-    private final MinioClient minioClient;
-    private final MinIOProperties minIOProperties;
+    GroupRepository groupRepository;
+    GroupMemberRepository groupMemberRepository;
+    GroupMapper groupMapper;
+    GroupMemberMapper groupMemberMapper;
+    MinioClient minioClient;
+    String bucketName;
 
-    @Value("${minio.bucket-name}")
-    private String bucketName;
+    @Inject
+    public GroupServiceImpl(GroupRepository groupRepository,
+                            GroupMemberRepository groupMemberRepository,
+                            GroupMapper groupMapper,
+                            GroupMemberMapper groupMemberMapper,
+                            MinioClient minioClient,
+                            @Value("${minio.bucket-name}") String bucketName) {
+        this.groupRepository = groupRepository;
+        this.groupMemberRepository = groupMemberRepository;
+        this.groupMapper = groupMapper;
+        this.groupMemberMapper = groupMemberMapper;
+        this.minioClient = minioClient;
+        this.bucketName = bucketName;
+    }
 
     @PostConstruct
-    private void init() {
-        if (bucketName.isEmpty() || bucketName.isBlank()) {
+    public void initializeService() throws Exception {
+        if(bucketName.isEmpty() || bucketName.isBlank()) {
             throw new MinIOException("MinIO bucket name is not configured properly.");
+        } else if(!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
         }
     }
 
@@ -94,7 +110,6 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Mono<GroupVO> getById(Long id) {
         return groupRepository.findById(id).switchIfEmpty(Mono.error(new QueryNotFoundException("Group Not Found"))).map(group -> {
-            ;
             GroupVO groupVO = groupMapper.toVO(group);
             groupVO.setGroupMembers(groupMemberRepository.findByGroup_Id(group.getId()).map(groupMemberMapper::toVO));
             return groupVO;
@@ -115,7 +130,7 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findById(id).switchIfEmpty(Mono.error(new QueryNotFoundException("Group Not Found"))).flatMap(group -> {
             if (FileValidation.validateImageFileExtension(file)) {
                 try (InputStream inputStream = file.getInputStream()) {
-                    String objectName = group.getId() + "_" + file.getFilename();
+                    String objectName = "avatar_" + group.getId();
                     minioClient.putObject(
                             io.minio.PutObjectArgs.builder()
                                     .bucket(bucketName)
@@ -123,7 +138,7 @@ public class GroupServiceImpl implements GroupService {
                                     .stream(inputStream, file.getSize(), -1)
                                     .build()
                     );
-                    group.setAvatar(minIOProperties.getUrl() + "/" + bucketName + "/" + objectName);
+                    group.setAvatar(objectName);
                     return groupRepository.save(group).map(groupMapper::toVO);
                 } catch (Exception e) {
                     return Mono.error(new MinIOException("Failed to upload image to MinIO: " + e.getMessage()));
@@ -141,13 +156,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Mono<GroupVO> deleteImage(Long id, String imageId) {
-        return groupRepository.findById(id).switchIfEmpty(Mono.error(new QueryNotFoundException("Group Not Found"))).flatMap(group -> {;
-            String objectName = group.getId() + "_" + imageId;
+        return groupRepository.findById(id).switchIfEmpty(Mono.error(new QueryNotFoundException("Group Not Found"))).flatMap(group -> {
             try {
                 minioClient.removeObject(
                         io.minio.RemoveObjectArgs.builder()
                                 .bucket(bucketName)
-                                .object(objectName)
+                                .object("avatar_" + group.getId())
                                 .build()
                 );
                 group.setAvatar(null);
