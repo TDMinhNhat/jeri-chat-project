@@ -1,0 +1,40 @@
+name: CI Develop Branch
+
+on:
+  push:
+    branches: ["backend"]
+  pull_request:
+    branches: ["backend"]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - chat-service
+          - friend-service
+          - group-service
+          - user-service
+          - jeri-chat-gateway
+    defaults:
+      run:
+        working-directory: ${{ matrix.service }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5.0.0
+
+      - name: Step up JDK 21
+        uses: actions/setup-java@v5.0.0
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Grant Permission
+        run: chmod +x ./gradlew
+
+      - name: Build & Run Tests
+        run: ./gradlew clean build --no-daemon
+          
