@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: ["backend"]
 
+permissions:
+  contents: write
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -23,18 +26,32 @@ jobs:
         working-directory: ${{ matrix.service }}
 
     steps:
+      # Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v5.0.0
 
+      # Step up JDK 21
       - name: Step up JDK 21
         uses: actions/setup-java@v5.0.0
         with:
           distribution: "temurin"
           java-version: "21"
 
+      # Grant permission to Gradle Wrapper
       - name: Grant Permission
         run: chmod +x ./gradlew
 
+      # Build & Run Tests
       - name: Build & Run Tests
         run: ./gradlew clean build --no-daemon
-          
+
+      # Merge contents to develop branch
+      - name: Automatically merge to develop branch
+        if: success() && github.ref == 'refs/heads/backend'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin develop
+          git checkout develop
+          git merge backend --no-ff -m "Automated merge backend → develop"
+          git push origin develop
