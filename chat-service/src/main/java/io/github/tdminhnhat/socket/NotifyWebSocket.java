@@ -1,5 +1,7 @@
 package io.github.tdminhnhat.socket;
 
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.websocket.WebSocketSession;
 import io.micronaut.websocket.annotation.OnClose;
 import io.micronaut.websocket.annotation.OnMessage;
@@ -16,17 +18,17 @@ import org.reactivestreams.Publisher;
 public class NotifyWebSocket {
 
     @OnOpen
-    public Publisher<?> onOpen(String userId, WebSocketSession webSocketSession) {
+    public Publisher<?> onOpen(@PathVariable("userId") String userId, WebSocketSession webSocketSession) {
         return null;
     }
 
     @OnMessage
-    public Publisher<?> onMessage(String userId, String message, WebSocketSession webSocketSession) {
+    public Publisher<?> onMessage(@PathVariable("userId") String userId, @Body String message, WebSocketSession webSocketSession) {
         return null;
     }
 
     @OnClose
-    public Publisher<?> onClose(String userId, WebSocketSession webSocketSession) {
+    public Publisher<?> onClose(@PathVariable("userId") String userId, WebSocketSession webSocketSession) {
         return null;
     }
 }
