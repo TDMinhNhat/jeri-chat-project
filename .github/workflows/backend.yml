@@ -3,8 +3,6 @@ name: CI Backend Branch
 on:
   push:
     branches: ["backend"]
-  pull_request:
-    branches: ["backend"]
 
 permissions:
   contents: write
@@ -51,7 +49,7 @@ jobs:
   auto-merge:
     needs: build-test
     runs-on: ubuntu-latest
-    if: github.ref == 'ref/heads/backend'
+    if: success() # The job "build-test" must complete successfully to run this job.
 
     steps:
       - uses: actions/checkout@v5.0.0
