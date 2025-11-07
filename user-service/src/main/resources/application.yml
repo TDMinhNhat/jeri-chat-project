@@ -1,0 +1,52 @@
+micronaut:
+  application:
+    name: user-service
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+  server:
+    context-path: /user
+    port: 9091
+datasources:
+  default:
+    driver-class-name: org.postgresql.Driver
+    db-type: postgres
+    dialect: POSTGRES
+    url: jdbc:postgresql://${POSTGRES_HOST_DB:localhost}:${POSTGRES_PORT_DB:5432}/jeri-user-service
+    username: ${POSTGRES_AUTH_USERNAME:postgres}
+    password: ${POSTGRES_AUTH_PASSWORD:123456789}
+consul:
+  client:
+    defaultZone: ${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+    registration:
+      enabled: ${CONSUL_STATUS:true}
+flyway:
+  datasources:
+    default:
+      enabled: true
+      validate-on-migrate: true
+      validate-migration-naming: true
+      url: jdbc:postgresql://${POSTGRES_HOST_DB:localhost}:${POSTGRES_PORT_DB:5432}/jeri-user-service
+      username: ${POSTGRES_AUTH_USERNAME:postgres}
+      password: ${POSTGRES_AUTH_PASSWORD:123456789}
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+      show_sql: true
+      format_sql: true
+api:
+  path:
+    user: /api/v1/users
+minio:
+  endpoint: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
+  accessKey: ${MINIO_ACCESS_KEY:minioadmin}
+  secretKey: ${MINIO_SECRET_KEY:minioadmin}
+  bucketName: ${MINIO_BUCKET_NAME:jeri-user-service}

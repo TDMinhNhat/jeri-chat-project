@@ -1,0 +1,66 @@
+name: CI Backend Branch
+
+on:
+  push:
+    branches: ["backend"]
+
+permissions:
+  contents: write
+
+jobs:
+
+  # Job 1: Build and Test Services
+  build-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - chat-service
+          - friend-service
+          - group-service
+          - user-service
+          - jeri-chat-gateway
+    defaults:
+      run:
+        working-directory: ${{ matrix.service }}
+
+    steps:
+      # Checkout Code
+      - name: Checkout Code
+        uses: actions/checkout@v5.0.0
+
+      # Step up JDK 21
+      - name: Step up JDK 21
+        uses: actions/setup-java@v5.0.0
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      # Grant permission to Gradle Wrapper
+      - name: Grant Permission
+        run: chmod +x ./gradlew
+
+      # Build & Run Tests
+      - name: Build & Run Tests
+        run: ./gradlew clean build --no-daemon
+
+  # Job 2: Auto Merge backend to develop
+  auto-merge:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: success() # The job "build-test" must complete successfully to run this job.
+
+    steps:
+      - uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Auto Merge backend → develop
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin develop
+          git checkout develop
+          git merge backend --no-ff -m "Automated merge backend → develop"
+          git push origin develop
