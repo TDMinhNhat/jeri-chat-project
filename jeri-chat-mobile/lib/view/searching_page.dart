@@ -16,26 +16,30 @@ class _SearchingPageState extends State<SearchingPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        actions: [
-          TextField(
-            autofocus: true,
-            decoration: InputDecoration(
-              hintText: "Type here to search",
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.search),
-            ),
-            onChanged: (value){
-              setState(() {
-                _textSearch = value;
-              });
-            },
+        backgroundColor: Colors.blue,
+        title: TextField(
+          autofocus: true,
+          decoration: InputDecoration(
+            hintText: "Type here to search",
+            border: UnderlineInputBorder(),
+            suffixIcon: Icon(Icons.search),
           ),
+          onChanged: (value){
+            setState(() {
+              _textSearch = value;
+            });
+          },
+        ),
+        actions: [
+
         ],
       ),
 
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Column(children: []),
+        child: Column(children: [
+
+        ]),
       ),
     );
   }

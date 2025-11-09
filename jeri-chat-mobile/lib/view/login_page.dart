@@ -17,6 +17,11 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _isObscure = true;
 
+  void _goToHomePage() {
+    Navigator.pop(context, "/");
+    Navigator.pushNamed(context, "/home");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,8 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
 
-                              Navigator.pop(context, "/");
-                              Navigator.pushNamed(context, "/home");
+                              _goToHomePage();
                             }
                           },
                           style: ElevatedButton.styleFrom(
