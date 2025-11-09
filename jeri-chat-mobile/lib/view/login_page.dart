@@ -127,8 +127,9 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-                              print("Account: $_accountValue");
-                              print("Password: $_passwordValue");
+
+                              Navigator.pop(context, "/");
+                              Navigator.pushNamed(context, "/home");
                             }
                           },
                           style: ElevatedButton.styleFrom(

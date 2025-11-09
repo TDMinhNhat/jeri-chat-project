@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
+          centerTitle: true,
           actions: [
             Text(_titleAppBar, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
             
@@ -73,6 +74,7 @@ class _HomePageState extends State<HomePage> {
           ],
           currentIndex: _currentIndex,
           selectedItemColor: Colors.red,
+          backgroundColor: Colors.blue,
           onTap: (index) {
             setState(() {
               _currentIndex = index;

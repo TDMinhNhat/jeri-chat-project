@@ -19,7 +19,6 @@ class _SearchingPageState extends State<SearchingPage> {
         actions: [
           TextField(
             autofocus: true,
-            expands: true,
             decoration: InputDecoration(
               hintText: "Type here to search",
               border: OutlineInputBorder(),
