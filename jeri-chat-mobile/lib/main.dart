@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jeri_chat_project_mobile/view/home_page/chat_component/add_friend.dart';
 import 'package:jeri_chat_project_mobile/view/register_page.dart';
 import 'package:jeri_chat_project_mobile/view/searching_page.dart';
 import 'package:jeri_chat_project_mobile/view/home_page.dart';
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
         "/": (context) => LoginPage(),
         "/home": (context) => HomePage(),
         "/register": (context) => RegisterPage(),
+        "/add_friend": (context) => AddFriend(),
+        "/add_group": (context) => RegisterPage(),
         "/searching": (context) => SearchingPage()
       },
     );

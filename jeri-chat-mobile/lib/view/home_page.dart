@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jeri_chat_project_mobile/view/home_component/blog_component.dart';
-import 'package:jeri_chat_project_mobile/view/home_component/chat_component.dart';
-import 'package:jeri_chat_project_mobile/view/home_component/contact_component.dart';
-import 'package:jeri_chat_project_mobile/view/home_component/personal_component.dart';
+import 'package:jeri_chat_project_mobile/view/home_page/blog_component.dart';
+import 'package:jeri_chat_project_mobile/view/home_page/chat_component.dart';
+import 'package:jeri_chat_project_mobile/view/home_page/contact_component.dart';
+import 'package:jeri_chat_project_mobile/view/home_page/personal_component.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,11 +22,11 @@ class _HomePageState extends State<HomePage> {
       case ChatComponent():
         return <Widget>[
           IconButton(onPressed: () {
-
+            Navigator.pushNamed(context, "/add_friend");
           }, icon: Icon(Icons.person_add, color: Colors.white,)),
 
           IconButton(onPressed: () {
-
+            Navigator.pushNamed(context, "/add_group");
           }, icon: Icon(Icons.group_add, color: Colors.white,))
         ];
       case ContactComponent():
