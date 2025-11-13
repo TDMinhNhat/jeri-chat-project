@@ -8,7 +8,6 @@ class AddFriend extends StatefulWidget {
 }
 
 class _AddFriendState extends State<AddFriend> {
-
   final _contentController = TextEditingController();
 
   String? _contentSearching;
@@ -33,20 +32,17 @@ class _AddFriendState extends State<AddFriend> {
           children: [
             SizedBox(height: 20),
 
-            Row(
-              children: [
-                SearchBar(
-                  controller: _contentController,
-                ),
+            SearchBar(
+              controller: _contentController,
+              onChanged: (value) {
+                setState(() {
+                  _contentSearching = value;
+                });
+              },
+              hintText: "Search by Display Name, Phone or Email",
+              autoFocus: true,
+              leading: Icon(Icons.search),
 
-                SizedBox(width: 20,),
-
-                DropdownButton(items: ["Display Name", "Phone", "Email"].map((item) {
-                  return DropdownMenuItem(value: item,child: Text(item));
-                }).toList(), onChanged: (value){
-
-                }, icon: Icon(Icons.filter_list_alt),),
-              ],
             ),
           ],
         ),
