@@ -17,3 +17,7 @@ target/
 out/
 .micronaut/
 .idea
+
+# Docker
+./docker/data/
+data/
