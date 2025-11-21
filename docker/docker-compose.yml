@@ -1,5 +1,17 @@
 name: jeri-service-test
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    command: [ "start-dev" ]
+    volumes:
+      - "./data/keycloak:/opt/keycloak/data"
   minio:
     image: minio/minio:latest
     container_name: minio
@@ -11,6 +23,8 @@ services:
       MINIO_ROOT_PASSWORD: minioadmin
     command: server /data --console-address ":9001"
     restart: always
+    volumes:
+      - "./data/minio:/data"
   consul:
     image: consul:1.15.4
     container_name: consul
@@ -18,4 +32,30 @@ services:
       - "8500:8500"
       - "8600:8600/udp"
     restart: always
+    volumes:
+      - "./data/consul:/consul/data"
+  postgres:
+    image: postgres:15.15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: postgres
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+  mongodb:
+    image: mongodb/mongodb-enterprise-server:7.0-ubuntu2204
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456789
+    volumes:
+      - "./data/mongodb/db:/data/db"
+      - "./data/mongodb/configdb:/data/configdb"
 
