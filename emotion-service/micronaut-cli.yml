@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: io.github.tdminhnhat
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [ app-name, consul, data, data-r2dbc, discovery-client, discovery-consul, elasticsearch, flyway, graalvm, gradle, http-client, http-client-test, java, java-application, jdbc-hikari, junit, lombok, micronaut-aot, micronaut-build, micronaut-http-validation, netty-server, openapi, postgres, r2dbc, reactor, reactor-http-client, readme, serialization-jackson, shade, slf4j-simple-logger, static-resources, swagger-ui, test-resources, validation, yaml, yaml-build ]
