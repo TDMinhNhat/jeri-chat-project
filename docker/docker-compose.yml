@@ -1,4 +1,4 @@
-name: service-dev
+name: jeri-service-test
 services:
   minio:
     image: minio/minio:latest
