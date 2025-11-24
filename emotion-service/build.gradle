@@ -44,7 +44,6 @@ dependencies {
     runtimeOnly("org.flywaydb:flyway-database-postgresql")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
-    runtimeOnly("org.slf4j:log4j-over-slf4j")
     runtimeOnly("org.yaml:snakeyaml")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
