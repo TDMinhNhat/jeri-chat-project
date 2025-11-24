@@ -33,6 +33,8 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.minio:minio:8.6.0")
+    implementation("org.mapstruct:mapstruct:1.6.3")
 
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
