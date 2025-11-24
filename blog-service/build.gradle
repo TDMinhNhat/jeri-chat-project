@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
-    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut.data:micronaut-data-document-processor")
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.openapi:micronaut-openapi")
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
@@ -22,29 +22,23 @@ dependencies {
 
     implementation("io.micrometer:context-propagation")
     implementation("io.micronaut:micronaut-http-client")
-    implementation("io.micronaut.data:micronaut-data-r2dbc")
+    implementation("io.micronaut:micronaut-websocket")
+    implementation("io.micronaut.data:micronaut-data-mongodb")
     implementation("io.micronaut.discovery:micronaut-discovery-client")
-    implementation("io.micronaut.elasticsearch:micronaut-elasticsearch")
-    implementation("io.micronaut.flyway:micronaut-flyway")
+    implementation("io.micronaut.mongodb:micronaut-mongo-reactive")
     implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("io.micronaut.reactor:micronaut-reactor-http-client")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
-    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
-    implementation("org.apache.logging.log4j:log4j-api:2.23.1")
-    implementation("org.apache.logging.log4j:log4j-core:2.23.1")
     implementation("io.minio:minio:8.6.0")
     implementation("org.mapstruct:mapstruct:1.6.3")
 
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
 
-    runtimeOnly("io.goodforgod:slf4j-simple-logger:2.0.0")
-    runtimeOnly("org.flywaydb:flyway-database-postgresql")
-    runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("org.postgresql:r2dbc-postgresql")
-    runtimeOnly("org.slf4j:log4j-over-slf4j")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.mongodb:mongodb-driver-reactivestreams")
     runtimeOnly("org.yaml:snakeyaml")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
