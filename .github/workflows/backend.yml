@@ -20,6 +20,8 @@ jobs:
           - friend-service
           - group-service
           - user-service
+          - emotion-service
+          - blog-service
           - jeri-chat-gateway
     defaults:
       run:
