@@ -9,12 +9,6 @@ pipeline {
                 // Add build steps here
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                // Add test steps here
-            }
-        }
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
