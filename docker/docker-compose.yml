@@ -1,5 +1,14 @@
 name: jeri-service-test
 services:
+  jenkins:
+    image: jenkins/jenkins:jdk21
+    container_name: jenkins
+    ports:
+      - "9090:8080"
+      - "50000:50000"
+    restart: always
+    volumes:
+      - "./data/jenkins_home:/var/jenkins_home"
   keycloak:
     image: quay.io/keycloak/keycloak:26.4
     container_name: keycloak
