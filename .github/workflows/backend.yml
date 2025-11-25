@@ -22,6 +22,7 @@ jobs:
           - user-service
           - emotion-service
           - blog-service
+          - authen-service
           - jeri-chat-gateway
     defaults:
       run:
