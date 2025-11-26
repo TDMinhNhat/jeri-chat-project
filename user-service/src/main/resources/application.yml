@@ -11,7 +11,7 @@ micronaut:
         mapping: /swagger-ui/**
   server:
     context-path: /user
-    port: 9091
+    port: ${USER_SERVICE_PORT:10091}
 datasources:
   default:
     driver-class-name: org.postgresql.Driver

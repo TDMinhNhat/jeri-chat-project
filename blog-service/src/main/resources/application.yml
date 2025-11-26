@@ -9,6 +9,9 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  server:
+    port: ${BLOG_SERVICE_PORT:10096}
+    context-path: /blog
 consul:
   client:
     registration:

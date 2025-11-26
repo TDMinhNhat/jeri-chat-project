@@ -9,6 +9,10 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  server:
+    port: ${AUTHEN_SERVICE_PORT:10096}
+    context-path: /authen
+
 consul:
   client:
     registration:

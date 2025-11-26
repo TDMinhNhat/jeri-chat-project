@@ -27,6 +27,8 @@ dependencies {
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.micronaut.security:micronaut-security-oauth2")
+    implementation("io.micronaut.security:micronaut-security-jwt")
 
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")

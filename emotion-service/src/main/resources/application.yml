@@ -9,6 +9,9 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  server:
+    port: ${EMOTION_SERVICE_PORT:10095}
+    context-path: /emotion
 r2dbc:
   datasources:
     default:

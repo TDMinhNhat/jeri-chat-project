@@ -10,7 +10,7 @@ micronaut:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
   server:
-    port: 9094
+    port: ${CHAT_SERVICE_PORT:10094}
     context-path: /chat
 #consul:
 #  client:

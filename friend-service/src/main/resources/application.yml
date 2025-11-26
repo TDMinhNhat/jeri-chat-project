@@ -11,7 +11,7 @@ micronaut:
         mapping: /swagger-ui/**
   server:
     context-path: /friend
-    port: 9092
+    port: ${FRIEND_SERVICE_PORT:10092}
 r2dbc:
   datasources:
     default:

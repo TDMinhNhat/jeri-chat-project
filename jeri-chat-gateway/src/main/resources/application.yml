@@ -31,6 +31,18 @@ spring:
               uri: lb://group-service
               predicates:
                 - Path=/group/**
+            - id: chat-service
+              uri: lb://chat-service
+              predicates:
+                - Path=/chat/**
+            - id: emotion-service
+              uri: lb://emotion-service
+              predicates:
+                - Path=/emotion/**
+            - id: blog-service
+              uri: lb://blog-service
+              predicates:
+                - Path=/blog/**
     consul:
       discovery:
         enabled: true
